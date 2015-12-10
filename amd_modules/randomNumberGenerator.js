@@ -1,9 +1,9 @@
 define(function(){
-    var RandomNumberGenerator = {
-        generate: function(){
+    var api = {};
+
+    api.generate = function(){
             return Math.random();
-        }
     };
 
-    return RandomNumberGenerator;
+    return api;
 });
