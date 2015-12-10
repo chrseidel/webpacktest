@@ -2,7 +2,7 @@ define(function(){
 
     var template = "<h1></h1><p></p>";
 
-    function createElement(){
+    return function(){
         var rootElem = document.createElement("div");
         rootElem.innerHTML = template;
 
@@ -25,7 +25,5 @@ define(function(){
             rootElem._heading = heading;
         };
         return rootElem;
-    }
-
-    return createElement;
+    };
 });
