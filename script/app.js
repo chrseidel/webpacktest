@@ -1,18 +1,29 @@
-define(['./umd_modules/content.js',
-    './amd_modules/randomNumberGenerator.js',
-    './amd_modules/heartbeat.js',
-    './amd_modules/domComponent.js']
-    ,function(text, randomNumberGenerator, heartbeat, SimpleComponent){
+'use-strict';
+var Heartbeat = require('./services/Heartbeat');
+var randomNumberView = require('./views/RandomNumberView');
+var RandomNumberAction = require("./actions/RandomNumberAction");
+var JsBtnFactory = require('./util/JsBtnFactory');
 
-        var component = SimpleComponent();
 
-        component.setHeading(text);
-        heartbeat.register(function(){
-            component.setText(randomNumberGenerator.generate());
+class App {
+
+    static main(){
+        var component = document.createElement(randomNumberView);
+        let heartbeat = new Heartbeat();
+
+        heartbeat.register({
+            notify: RandomNumberAction.create.bind(RandomNumberAction)
         });
 
-        document.body.appendChild(component);
 
-        heartbeat.register(component.render);
+        document.body.appendChild(component);
+        document.body.appendChild(JsBtnFactory('stop', function(e){heartbeat.stop()}));
+        document.body.appendChild(JsBtnFactory('start', function(e){heartbeat.start()}));
+        document.body.appendChild(JsBtnFactory('new random number', function(e){RandomNumberAction.create()}));
+
+        heartbeat.register(component);
         heartbeat.start();
-    });
+    }
+}
+
+App.main();

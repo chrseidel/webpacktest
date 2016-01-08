@@ -1,65 +1,71 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/*!************************!*\
+  !*** ./webpack_app.js ***!
+  \************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(1);
-	var text = __webpack_require__(5);
-	document.write(text);
-
+	"use strict";
+	
+	__webpack_require__(/*! ./style.css */ 1);
+	__webpack_require__(/*! ./script/app.js */ 5);
 
 /***/ },
 /* 1 */
+/*!*******************!*\
+  !*** ./style.css ***!
+  \*******************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
-
+	
 	// load the styles
-	var content = __webpack_require__(2);
+	var content = __webpack_require__(/*! !./~/css-loader!./style.css */ 2);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(4)(content, {});
+	var update = __webpack_require__(/*! ./~/style-loader/addStyles.js */ 4)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -77,36 +83,44 @@
 
 /***/ },
 /* 2 */
+/*!**********************************!*\
+  !*** ./~/css-loader!./style.css ***!
+  \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(3)();
+	exports = module.exports = __webpack_require__(/*! ./~/css-loader/lib/css-base.js */ 3)();
 	// imports
-
-
+	
+	
 	// module
-	exports.push([module.id, "body {\n\tbackground: blue;\n}\n", ""]);
-
+	exports.push([module.id, "body {\n\tbackground: coral;\n}\n", ""]);
+	
 	// exports
 
 
 /***/ },
 /* 3 */
+/*!**************************************!*\
+  !*** ./~/css-loader/lib/css-base.js ***!
+  \**************************************/
 /***/ function(module, exports) {
 
+	"use strict";
+	
 	/*
 		MIT License http://www.opensource.org/licenses/mit-license.php
 		Author Tobias Koppers @sokra
 	*/
 	// css base code, injected by the css-loader
-	module.exports = function() {
+	module.exports = function () {
 		var list = [];
-
+	
 		// return the list of modules as css string
 		list.toString = function toString() {
 			var result = [];
-			for(var i = 0; i < this.length; i++) {
+			for (var i = 0; i < this.length; i++) {
 				var item = this[i];
-				if(item[2]) {
+				if (item[2]) {
 					result.push("@media " + item[2] + "{" + item[1] + "}");
 				} else {
 					result.push(item[1]);
@@ -114,27 +128,25 @@
 			}
 			return result.join("");
 		};
-
+	
 		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
+		list.i = function (modules, mediaQuery) {
+			if (typeof modules === "string") modules = [[null, modules, ""]];
 			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
+			for (var i = 0; i < this.length; i++) {
 				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
+				if (typeof id === "number") alreadyImportedModules[id] = true;
 			}
-			for(i = 0; i < modules.length; i++) {
+			for (i = 0; i < modules.length; i++) {
 				var item = modules[i];
 				// skip already imported module
 				// this implementation is not 100% perfect for weird media query combinations
 				//  when a module is imported multiple times with different media queries.
 				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
+				if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if (mediaQuery && !item[2]) {
 						item[2] = mediaQuery;
-					} else if(mediaQuery) {
+					} else if (mediaQuery) {
 						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
 					}
 					list.push(item);
@@ -144,9 +156,11 @@
 		return list;
 	};
 
-
 /***/ },
 /* 4 */
+/*!*************************************!*\
+  !*** ./~/style-loader/addStyles.js ***!
+  \*************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -170,23 +184,23 @@
 		singletonElement = null,
 		singletonCounter = 0,
 		styleElementsInsertedAtTop = [];
-
+	
 	module.exports = function(list, options) {
-		if(false) {
+		if(true) {
 			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
 		}
-
+	
 		options = options || {};
 		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
 		// tags it will allow on a page
 		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-
+	
 		// By default, add <style> tags to the bottom of <head>.
 		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-
+	
 		var styles = listToStyles(list);
 		addStylesToDom(styles, options);
-
+	
 		return function update(newList) {
 			var mayRemove = [];
 			for(var i = 0; i < styles.length; i++) {
@@ -209,7 +223,7 @@
 			}
 		};
 	}
-
+	
 	function addStylesToDom(styles, options) {
 		for(var i = 0; i < styles.length; i++) {
 			var item = styles[i];
@@ -231,7 +245,7 @@
 			}
 		}
 	}
-
+	
 	function listToStyles(list) {
 		var styles = [];
 		var newStyles = {};
@@ -249,7 +263,7 @@
 		}
 		return styles;
 	}
-
+	
 	function insertStyleElement(options, styleElement) {
 		var head = getHeadElement();
 		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
@@ -268,7 +282,7 @@
 			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
 		}
 	}
-
+	
 	function removeStyleElement(styleElement) {
 		styleElement.parentNode.removeChild(styleElement);
 		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
@@ -276,24 +290,24 @@
 			styleElementsInsertedAtTop.splice(idx, 1);
 		}
 	}
-
+	
 	function createStyleElement(options) {
 		var styleElement = document.createElement("style");
 		styleElement.type = "text/css";
 		insertStyleElement(options, styleElement);
 		return styleElement;
 	}
-
+	
 	function createLinkElement(options) {
 		var linkElement = document.createElement("link");
 		linkElement.rel = "stylesheet";
 		insertStyleElement(options, linkElement);
 		return linkElement;
 	}
-
+	
 	function addStyle(obj, options) {
 		var styleElement, update, remove;
-
+	
 		if (options.singleton) {
 			var styleIndex = singletonCounter++;
 			styleElement = singletonElement || (singletonElement = createStyleElement(options));
@@ -319,9 +333,9 @@
 				removeStyleElement(styleElement);
 			};
 		}
-
+	
 		update(obj);
-
+	
 		return function updateStyle(newObj) {
 			if(newObj) {
 				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
@@ -332,19 +346,19 @@
 			}
 		};
 	}
-
+	
 	var replaceText = (function () {
 		var textStore = [];
-
+	
 		return function (index, replacement) {
 			textStore[index] = replacement;
 			return textStore.filter(Boolean).join('\n');
 		};
 	})();
-
+	
 	function applyToSingletonTag(styleElement, index, remove, obj) {
 		var css = remove ? "" : obj.css;
-
+	
 		if (styleElement.styleSheet) {
 			styleElement.styleSheet.cssText = replaceText(index, css);
 		} else {
@@ -358,16 +372,16 @@
 			}
 		}
 	}
-
+	
 	function applyToTag(styleElement, obj) {
 		var css = obj.css;
 		var media = obj.media;
 		var sourceMap = obj.sourceMap;
-
+	
 		if(media) {
 			styleElement.setAttribute("media", media)
 		}
-
+	
 		if(styleElement.styleSheet) {
 			styleElement.styleSheet.cssText = css;
 		} else {
@@ -377,23 +391,23 @@
 			styleElement.appendChild(document.createTextNode(css));
 		}
 	}
-
+	
 	function updateLink(linkElement, obj) {
 		var css = obj.css;
 		var media = obj.media;
 		var sourceMap = obj.sourceMap;
-
+	
 		if(sourceMap) {
 			// http://stackoverflow.com/a/26603875
 			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
 		}
-
+	
 		var blob = new Blob([css], { type: "text/css" });
-
+	
 		var oldSrc = linkElement.href;
-
+	
 		linkElement.href = URL.createObjectURL(blob);
-
+	
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
 	}
@@ -401,10 +415,224 @@
 
 /***/ },
 /* 5 */
+/*!***********************!*\
+  !*** ./script/app.js ***!
+  \***********************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
+	
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./umd_modules/content.js */ 6), __webpack_require__(/*! ./amd_modules/randomNumberGenerator.js */ 7), __webpack_require__(/*! ./amd_modules/heartbeat.js */ 8), __webpack_require__(/*! ./amd_modules/domComponent.js */ 9)], __WEBPACK_AMD_DEFINE_RESULT__ = function (text, randomNumberGenerator, heartbeat, component) {
+	
+	    component.setHeading(text);
+	    component.setText("component initialized");
+	    heartbeat.register(function () {
+	        component.setText(randomNumberGenerator.generate());
+	    });
+	
+	    document.body.appendChild(component);
+	    component.render();
+	    heartbeat.register(component.render);
+	    heartbeat._tickrate = 1000 / 30; // reduce to 30fps
+	    heartbeat.start();
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 6 */
+/*!***************************************!*\
+  !*** ./script/umd_modules/content.js ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	(function (root, factory) {
+	    if (true) {
+	        //AMD
+	        !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	            return factory();
+	        }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if ((typeof exports === "undefined" ? "undefined" : _typeof(exports)) === 'object') {
+	        //commonJs
+	        module.exports = factory();
+	    } else {
+	        // global object
+	        root.returnExports = factory();
+	    }
+	})(undefined, function () {
+	    return "Zufällige Zahl";
+	});
+
+/***/ },
+/* 7 */
+/*!*****************************************************!*\
+  !*** ./script/amd_modules/randomNumberGenerator.js ***!
+  \*****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	
+	!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    var api = {};
+	
+	    api.generate = function () {
+	        return Math.random();
+	    };
+	
+	    return api;
+	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 8 */
+/*!*****************************************!*\
+  !*** ./script/amd_modules/heartbeat.js ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
+	'use-strict';
+	
+	!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    var api = {};
+	
+	    api.views = [];
+	    api._tickrate = 1000 / 60; //60fps
+	
+	    api._notify = function () {
+	        var i;
+	        for (i = 0; i < this.observers.length; i++) {
+	            this.observers[i].call(this.observers[i]);
+	        }
+	    };
+	
+	    api.register = function (callback) {
+	        this.observers.push(callback);
+	    };
+	
+	    api.start = function () {
+	        this._timer = window.setInterval(this._notify.bind(this), this._tickrate);
+	    };
+	
+	    api.stop = function () {
+	        window.clearInterval(this._timer);
+	    };
+	
+	    return api;
+	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 9 */
+/*!********************************************!*\
+  !*** ./script/amd_modules/domComponent.js ***!
+  \********************************************/
 /***/ function(module, exports) {
 
-	module.exports = "Remote Content";
-
+	"use strict";
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Component = function (_HTMLElement) {
+	    _inherits(Component, _HTMLElement);
+	
+	    function Component() {
+	        _classCallCheck(this, Component);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Component).call(this));
+	
+	        _this.template = "<h1></h1><p></p>";
+	        _this.heading = "";
+	        _this.text = "";
+	        _this._headingEl = template.querySelector('h1');
+	        _this._textEl = template.querySelector('p');
+	        _this.appendChild(template);
+	        return _this;
+	    }
+	
+	    _createClass(Component, [{
+	        key: "setHeading",
+	        value: function setHeading(heading) {
+	            this.heading = heading;
+	        }
+	    }, {
+	        key: "setText",
+	        value: function setText(text) {
+	            this.text = text;
+	        }
+	    }, {
+	        key: "setBackgroundColor",
+	        value: function setBackgroundColor(color) {
+	            this.style.backgroundColor = color;
+	        }
+	    }, {
+	        key: "createdCallback",
+	        value: function createdCallback() {
+	            this.constructor();
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            this._headingEl = this.heading;
+	            this._textEl = this.text;
+	        }
+	    }]);
+	
+	    return Component;
+	}(HTMLElement);
+	
+	exports.default = Component;
+	
+	if (typeof document.registerElement === 'function') {
+	    document.registerElemtn('dom-component', Component);
+	}
+	
+	//module.exports = new Component();
+	
+	//define(function(){
+	//
+	//    var template = `<h1></h1><p></p>`;
+	//
+	//    return function(){
+	//        let rootElem = document.createElement("div");
+	//        rootElem.innerHTML = template;
+	//
+	//        rootElem._headElem = rootElem.querySelector("h1");
+	//        rootElem._textElem = rootElem.querySelector("p");
+	//
+	//        rootElem._heading = "";
+	//        rootElem._text = "";
+	//
+	//        rootElem.render = function(){
+	//            rootElem._headElem.textContent = rootElem._heading;
+	//            rootElem._textElem.textContent = rootElem._text;
+	//        };
+	//
+	//        rootElem.setText = function(text){
+	//            rootElem._text = text;
+	//        };
+	//
+	//        rootElem.setHeading = function(heading){
+	//            rootElem._heading = heading;
+	//        };
+	//
+	//        rootElem.setBackgroundColor = function(color) {
+	//            rootElem.style.backgroundColor = color;
+	//        };
+	//        return rootElem;
+	//    };
+	//});
 
 /***/ }
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
